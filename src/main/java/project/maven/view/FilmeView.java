@@ -13,7 +13,8 @@ public class FilmeView {
 		do {
 			System.out.print("O que você deseja fazer?");
 			System.out.println("\n |1 - Incluir novo filme" + "\n |2 - Consultar filme existente"
-					+ "\n |3 - Alterar os dados de um filme" + "\n |4 - Deletar o cadastro de um filme");
+					+ "\n |3 - Alterar os dados de um filme" + "\n |4 - Deletar o cadastro de um filme"
+					+ "\n |5 - Mostrar todos os filme");
 			System.out.print("Opção desejada: ");
 			int opcao = input.nextInt();
 
@@ -36,31 +37,32 @@ public class FilmeView {
 				int id = input.nextInt();
 
 				FilmeDao filmeDao = new FilmeDao();
-				for (Filme f : filmeDao.getFilme(id)) {}
+				for (Filme f : filmeDao.getFilme(id)) {
+				}
 				break;
 			}
-			case 3:{
+			case 3: {
 				System.out.print("Digite o ID do filme: ");
 				int id = input.nextInt();
 				FilmeDao filme1 = new FilmeDao();
 				Filme f1 = new Filme();
 				for (Filme f : filme1.getFilme(id)) {
-				System.out.println("ID: " + f.getId());
-				System.out.println("Nome: " + f.getNome());
-				System.out.println("Genero: " + f.getGenero());
+					System.out.println("ID: " + f.getId());
+					System.out.println("Nome: " + f.getNome());
+					System.out.println("Genero: " + f.getGenero());
 				}
 				f1.setId(id);
 				System.out.println("\n Digite o novo nome do filme: ");
 				String nome = input.next();
-				
+
 				System.out.println("\n Digite o novo genero do filme: ");
 				String genero = input.next();
-				
-				filme1.AlterarFilme(id,nome,genero);
-				
+
+				filme1.AlterarFilme(id, nome, genero);
+
 				break;
 			}
-			case 4:{
+			case 4: {
 				System.out.print("Digite o ID do filme: ");
 				int id = input.nextInt();
 
@@ -72,21 +74,31 @@ public class FilmeView {
 				}
 				System.out.println("Deseja excluir este filme? <s> para sim e <n> para não");
 				char ex = input.next().charAt(0);
-				if(ex != 'n') {
+				if (ex != 'n') {
 					filme2.ExcluirFilme(id);
-				}else {
+				} else {
 					System.out.println("Filme não excluido");
 				}
 				break;
 			}
+			case 5: {
+				FilmeDao filme3 = new FilmeDao();
+				for (Filme f : filme3.findAll()) {
+					System.out.println("ID: " + f.getId());
+					System.out.println("Nome: " + f.getNome());
+					System.out.println("Genero: " + f.getGenero());
+					System.out.println("-----------------------------------------------");
+				}
+				filme3.findAll();
 			}
-			
+			}
+
 			System.out.println("Deseja continuar? <s> para sim e <n> para não");
 			resp = input.next().charAt(0);
-			
+
 		} while (resp != 'n');
-		
-		if(resp == 'n') {
+
+		if (resp == 'n') {
 			System.out.println("Fim da operação!!!");
 		}
 		input.close();

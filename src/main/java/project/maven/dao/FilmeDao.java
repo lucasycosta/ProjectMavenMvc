@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 
 import org.apache.log4j.Logger;
 
+import jakarta.persistence.Query;
 import projeto.maven.model.Filme;
 
 public class FilmeDao {
@@ -63,6 +64,22 @@ public class FilmeDao {
 		em.getTransaction().commit();
 		
 		System.out.println("Filme Excluido!!!!");
+	}
+	
+	public List<Filme> findAll() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("filme3");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		List<Filme> filme2 = null;
+		try {
+			filme2 = em.createQuery("from Filme").getResultList();
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		return filme2;
+
+		
 	}
 }
 
